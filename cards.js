@@ -100,7 +100,7 @@ Card.prototype.toString = function(){
 
 // Player Class
 
-function Player(name)){
+function Player(name){
   this.name = name
   this.hand = []
 }
@@ -110,22 +110,29 @@ function Player(name)){
 function War(players){
   this.players = players
   this.deck = new Deck()
+  this.deck.shuffle()
+  var handSize = Math.floor(this.deck.cards.length / players.length)
+  for(var i = 0; i < players.length; i++){
+    this.players[i].hand = this.players[i].hand.concat(this.deck.deal(handSize))
+  }
+  for(var i = 0; i < this.deck.cards.length; i++){
+    this.players[i].hand = this.players[i].hand.concat(this.deck.deal(1))
+  }
+}
+
+War.prototype.round = function(){
+
 }
 
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
 // var deck = new Deck()
-deck.cut(10)
-deck.faro()
-deck.cut(3)
-deck.faro()
-deck.cut(2)
-deck.faro()
 
 var p1 = new Player('Nagisa')
 var p2 = new Player('Saitama')
+var p3 = new Player('Yui-tan')
 
 // console.log(deck.deal().toString())
 
-var game = new War([p1,p2])
+var game = new War([p1,p2,p3])
