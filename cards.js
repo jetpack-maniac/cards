@@ -121,7 +121,41 @@ function War(players){
 }
 
 War.prototype.round = function(){
-
+  var table = []
+  var highest = {
+    player:-1,
+    value:0
+  }
+  var ties = []
+  for(var i = 0; i < players.length; i++){
+    var card = this.players[i].hand.shift()
+    if(card.value > highest.value){
+      highest.value = card.value
+      highest.player = i
+      ties = []
+    }
+    if(card.value == highest){
+      ties.push(i)
+      ties.push(highest.player)
+    }
+    table.push(card)
+  }
+  if(ties.length > 0){
+    highest.value = 0
+    highest.players = -1
+    for(var i = 0; i < ties.length; i++){
+       table = table.concat(this.players[i].hand.splice(0,3))
+       var card = this.players[i].hand[3]
+       table.push(card)
+       this.players[i].hand = this.players[i].hand.splice(4)
+       if(card.value > highest.value){
+         highest.value = card.value
+         highest.player = i
+         ties = []
+       }
+    }
+  }
+  this.players[highest.player].hand = this.players[highest.player].hand.concat(table)
 }
 
 // End of Classes
@@ -129,9 +163,9 @@ War.prototype.round = function(){
 
 // var deck = new Deck()
 
-var p1 = new Player('Nagisa')
-var p2 = new Player('Saitama')
-var p3 = new Player('Yui-tan')
+var p1 = new Player('Tom')
+var p2 = new Player('Dick')
+var p3 = new Player('Harry')
 
 // console.log(deck.deal().toString())
 
