@@ -1,6 +1,17 @@
 var suits = ['Diamonds','Clubs','Hearts','Spades']
 var values = ['Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Jack','Queen','King','Ace']
-var deck = []
+
+function Deck(){
+  this.cards = []
+
+  for(var suit = 0; suit < suits.length; suit++){
+    for(var value = 0; value < values.length; value++){
+      var card = new Card(values[value], suits[suit])
+      this.cards.push(card)
+      console.log(card.toString())
+    }
+  }
+}
 
 function Card(value, suit){
   this.value = value
@@ -11,10 +22,4 @@ Card.prototype.toString = function(){
   return this.value + " of " + this.suit
 }
 
-for(var suit = 0; suit < suits.length; suit++){
-  for(var value = 0; value < values.length; value++){
-    var card = new Card(values[value], suits[suit])
-    deck.push(card)
-    console.log(card.toString())
-  }
-}
+var deck = new Deck()
