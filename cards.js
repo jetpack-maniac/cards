@@ -9,6 +9,7 @@ var values = ['Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Ja
 
 function Deck(){
   this.cards = []
+  this.dealt = []
 
   for(var suit = 0; suit < suits.length; suit++){
     for(var value = 0; value < values.length; value++){
@@ -49,6 +50,17 @@ Deck.prototype.faro = function(){
   }
 }
 
+Deck.prototype.deal = function(number){
+  if(!number) number = 1
+  var cards = []
+  for(var i = 0; i < number; i++){
+    var card = this.cards.pop()
+    this.dealt.push(card)
+    cards.push(card)
+  }
+  return cards
+}
+
 Deck.prototype.print = function(){
     for(var i = 0; i < this.cards.length; i++){
       console.log(this.cards[i].toString())
@@ -77,4 +89,7 @@ deck.cut(3)
 deck.faro()
 deck.cut(2)
 deck.faro()
+
+console.log(deck.deal().toString())
+
 deck.print()
