@@ -50,6 +50,15 @@ Deck.prototype.faro = function(){
   }
 }
 
+Deck.prototype.shuffle = function (){
+  this.cut(10)
+  this.faro()
+  this.cut(3)
+  this.faro()
+  this.cut(2)
+  this.faro()
+}
+
 Deck.prototype.deal = function(number){
   if(!number) number = 1
   var cards = []
@@ -96,10 +105,17 @@ function Player(name)){
   this.hand = []
 }
 
+// War Class
+
+function War(players){
+  this.players = players
+  this.deck = new Deck()
+}
+
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
-var deck = new Deck()
+// var deck = new Deck()
 deck.cut(10)
 deck.faro()
 deck.cut(3)
@@ -107,4 +123,9 @@ deck.faro()
 deck.cut(2)
 deck.faro()
 
-console.log(deck.deal().toString())
+var p1 = new Player('Nagisa')
+var p2 = new Player('Saitama')
+
+// console.log(deck.deal().toString())
+
+var game = new War([p1,p2])
