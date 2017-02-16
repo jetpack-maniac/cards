@@ -20,6 +20,7 @@ function Deck(){
 }
 
 Deck.prototype.cut = function(cuts){
+  if(!cuts) cuts = Math.floor((Math.random() * 9) + 1)
   var packetSize = Math.floor(this.cards.length / cuts)
   var packets = []
 
@@ -49,12 +50,11 @@ Deck.prototype.faro = function(){
 }
 
 Deck.prototype.shuffle = function (){
-  this.cut(10)
-  this.faro()
-  this.cut(3)
-  this.faro()
-  this.cut(2)
-  this.faro()
+  var shuffles = Math.floor((Math.random() * 5) + 1)
+  for(i = 0; i < shuffles; i++){
+    this.cut()
+    this.faro()
+  }
 }
 
 Deck.prototype.deal = function(number){
@@ -93,7 +93,7 @@ function Card(value, suit){
 }
 
 Card.prototype.toString = function(){
-  return valves[this.value] + " of " + suits[this.suit]
+  return values[this.value] + " of " + suits[this.suit]
 }
 
 // Player Class
