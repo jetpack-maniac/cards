@@ -65,7 +65,17 @@ Deck.prototype.print = function(){
     for(var i = 0; i < this.cards.length; i++){
       console.log(this.cards[i].toString())
     }
-    console.log(this.cards.length + ' cards in the deck')
+}
+
+Deck.prototype.dealtPrint = function(){
+  for(var i = 0; i < this.dealt.length; i++){
+    console.log(this.dealt[i].toString())
+  }
+}
+
+Deck.prototype.status = function(){
+  console.log(this.cards.length + ' cards in the deck')
+  console.log(this.dealt.length + ' cards have been dealt')
 }
 
 // Card Class
@@ -91,5 +101,3 @@ deck.cut(2)
 deck.faro()
 
 console.log(deck.deal().toString())
-
-deck.print()
