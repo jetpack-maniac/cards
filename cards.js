@@ -38,6 +38,17 @@ Deck.prototype.cut = function(cuts){
 
 }
 
+Deck.prototype.faro = function(){
+  var left = this.cards.slice(0,26)
+  var right = this.cards.slice(26,52)
+  this.cards = []
+
+  for(var i = 0; i < 26; i++){
+    this.cards.push(left[i])
+    this.cards.push(right[i])
+  }
+}
+
 Deck.prototype.print = function(){
     for(var i = 0; i < this.cards.length; i++){
       console.log(this.cards[i].toString())
@@ -60,5 +71,10 @@ Card.prototype.toString = function(){
 ////////////////////////////////////////////////////////////////////////////////
 
 var deck = new Deck()
-deck.cut(5)
+deck.cut(10)
+deck.faro()
+deck.cut(3)
+deck.faro()
+deck.cut(2)
+deck.faro()
 deck.print()
