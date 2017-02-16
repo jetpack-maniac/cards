@@ -13,7 +13,7 @@ function Deck(){
 
   for(var suit = 0; suit < suits.length; suit++){
     for(var value = 0; value < values.length; value++){
-      var card = new Card(values[value], suits[suit])
+      var card = new Card(value, suit)
       this.cards.push(card)
     }
   }
@@ -95,7 +95,7 @@ function Card(value, suit){
 }
 
 Card.prototype.toString = function(){
-  return this.value + " of " + this.suit
+  return valves[this.value] + " of " + suits[this.suit]
 }
 
 // Player Class
