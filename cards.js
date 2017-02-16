@@ -89,6 +89,13 @@ Card.prototype.toString = function(){
   return this.value + " of " + this.suit
 }
 
+// Player Class
+
+function Player(name)){
+  this.name = name
+  this.hand = []
+}
+
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
