@@ -34,9 +34,7 @@ Deck.prototype.cut = function(cuts){
   for(var i = 0; i < packets.length; i++){
     result = result.concat(packets[i])
   }
-
   this.cards = result
-
 }
 
 Deck.prototype.faro = function(){
