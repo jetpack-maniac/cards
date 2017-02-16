@@ -118,8 +118,9 @@ function War(players){
   }
 }
 
-War.prototype.round = function(){
-  var table = []
+War.prototype.round = function(table, players){
+  if(!table) table = []
+  if(!players) players = this.players
   var highest = {
     player:-1,
     value:0
@@ -139,19 +140,7 @@ War.prototype.round = function(){
     table.push(card)
   }
   if(ties.length > 0){
-    highest.value = 0
-    highest.players = -1
-    for(var i = 0; i < ties.length; i++){
-       table = table.concat(this.players[i].hand.splice(0,3))
-       var card = this.players[i].hand[3]
-       table.push(card)
-       this.players[i].hand = this.players[i].hand.splice(4)
-       if(card.value > highest.value){
-         highest.value = card.value
-         highest.player = i
-         ties = []
-       }
-    }
+    this.round(table, ties)
   }
   this.players[highest.player].hand = this.players[highest.player].hand.concat(table)
 }
