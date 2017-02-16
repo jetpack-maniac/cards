@@ -18,10 +18,24 @@ function Deck(){
   }
 }
 
-Deck.prototype.cut = function(){
-  var packet = this.cards.slice(0,26)
-  var packet2 = this.cards.slice(26)
-  this.cards = packet2.concat(packet)
+Deck.prototype.cut = function(cuts){
+  var packetSize = Math.floor(this.cards.length / cuts)
+  var packets = []
+
+  for(var i = 0; i < cuts; i++){
+    packets.push(this.cards.slice(i * packetSize, i * packetSize + packetSize))
+  }
+  packets.push(this.cards.slice(packetSize*cuts))
+  packets.reverse()
+
+  var result = []
+
+  for(var i = 0; i < packets.length; i++){
+    result = result.concat(packets[i])
+  }
+
+  this.cards = result
+
 }
 
 Deck.prototype.print = function(){
@@ -29,7 +43,6 @@ Deck.prototype.print = function(){
       console.log(this.cards[i].toString())
     }
     console.log(this.cards.length + ' cards in the deck')
-
 }
 
 // Card Class
@@ -46,8 +59,6 @@ Card.prototype.toString = function(){
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
-
-
 var deck = new Deck()
-deck.cut()
+deck.cut(5)
 deck.print()
