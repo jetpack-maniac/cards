@@ -140,6 +140,10 @@ War.prototype.round = function(table, players){
     table.push(card)
   }
   if(ties.length > 0){
+    for(i = 0; i < ties.length; i++){
+      table = table.concat(this.players[i].hand.splice(0,3))
+      this.players[i].hand = this.players[i].hand.splice(3)
+    }
     this.round(table, ties)
   }
   this.players[highest.player].hand = this.players[highest.player].hand.concat(table)
