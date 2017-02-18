@@ -166,11 +166,13 @@ function Blackjack(players){
   this.deck.shuffle()
 }
 
-Blackjack.prototype.round = function(){
-  for(i in this.players){
-    this.players[i].hand = this.players[i].hand.concat(this.deck.deal(2))
-    console.log('player' + i)
-    this.score(this.players[i].hand)
+Blackjack.prototype.round = function(players){
+  if(!players) players = this.players
+  for(i in players){
+    var player = players[i]
+    player.hand = player.hand.concat(this.deck.deal(2))
+    console.log(player.name, player.hand)
+    this.score(player.hand)
   }
 }
 
@@ -187,8 +189,8 @@ Blackjack.prototype.score = function(hand){
     else if(hand[i].value >= 11){
       score = score + 10
     }
-    console.log(score)
   }
+  console.log(score)
 }
 
 // End of Classes
