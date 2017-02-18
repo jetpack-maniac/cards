@@ -166,10 +166,28 @@ function Blackjack(players){
   this.deck.shuffle()
 }
 
-Blackjack.prototype.round = function(players){
-  if(!players) return
-  for(i = 0; i < players.length; i++){
+Blackjack.prototype.round = function(){
+  for(i in this.players){
     this.players[i].hand = this.players[i].hand.concat(this.deck.deal(2))
+    console.log('player' + i)
+    this.score(this.players[i].hand)
+  }
+}
+
+Blackjack.prototype.score = function(hand){
+  var score = 0
+  // for(i = 0; i < hand.length; i++){
+  for(i in hand){
+    if(hand[i].value < 11){
+      score = score + hand[i].value
+    }
+    else if(hand[i].value == 14){
+      score = score + 11
+    }
+    else if(hand[i].value >= 11){
+      score = score + 10
+    }
+    console.log(score)
   }
 }
 
@@ -181,5 +199,5 @@ var p2 = new Player('Dick')
 var p3 = new Player('Harry')
 var people = [p1,p2,p3]
 
-var game = new War(people)
+var game = new Blackjack(people)
 game.round(people)
