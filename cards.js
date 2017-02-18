@@ -140,9 +140,15 @@ War.prototype.round = function(table, players){
     table.push(card)
   }
   if(ties.length > 0){
+    var handSize = 4
+    for(i =0; i < ties.length; i++){
+      if(this.players[i].hand.length < handSize){
+        handSize = this.players[i].hand.length
+      }
+    }
     for(i = 0; i < ties.length; i++){
-      table = table.concat(this.players[i].hand.splice(0,3))
-      this.players[i].hand = this.players[i].hand.splice(3)
+      table = table.concat(this.players[i].hand.splice(0,handSize-1))
+      this.players[i].hand = this.players[i].hand.splice(handSize-1)
     }
     this.round(table, ties)
   }
