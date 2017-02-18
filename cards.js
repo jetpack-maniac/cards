@@ -103,6 +103,8 @@ function Player(name){
   this.hand = []
 }
 
+///// Game classes
+
 // War Class
 
 function War(players){
@@ -155,6 +157,21 @@ War.prototype.round = function(table, players){
   this.players[highest.player].hand = this.players[highest.player].hand.concat(table)
 }
 
+// Blackjack Class
+
+function Blackjack(players){
+  this.players = players
+  this.deck = new Deck()
+  this.deck.shuffle()
+}
+
+Blackjack.prototype.round = function(players){
+  if(!players) return
+  for(i = 0; i < players.length; i++){
+    this.players[i].hand = this.players[i].hand.concat(this.deck.deal(2))
+  }
+}
+
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -166,4 +183,5 @@ var p3 = new Player('Harry')
 
 // console.log(deck.deal().toString())
 
-var game = new War([p1,p2,p3])
+var game = new Blackjack([p1,p2,p3])
+game.round([p1,p2,p3])
