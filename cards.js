@@ -1,5 +1,5 @@
 var suits = ['Diamonds','Clubs','Hearts','Spades']
-var values = ['Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Jack','Queen','King','Ace']
+var values = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 10:'Ten', 11:'Jack', 12:'Queen', 13:'King', 14:'Ace'}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Classes
@@ -12,7 +12,8 @@ function Deck(){
   this.dealt = []
 
   for(var suit = 0; suit < suits.length; suit++){
-    for(var value = 0; value < values.length; value++){
+    // for(var value = 0; value < values.length; value++){
+    for(var value in values){
       var card = new Card(value, suit)
       this.cards.push(card)
     }
@@ -88,7 +89,7 @@ Deck.prototype.status = function(){
 // Card Class
 
 function Card(value, suit){
-  this.value = value
+  this.value = parseInt(value)
   this.suit = suit
 }
 
@@ -175,13 +176,10 @@ Blackjack.prototype.round = function(players){
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
-// var deck = new Deck()
-
 var p1 = new Player('Tom')
 var p2 = new Player('Dick')
 var p3 = new Player('Harry')
+var people = [p1,p2,p3]
 
-// console.log(deck.deal().toString())
-
-var game = new Blackjack([p1,p2,p3])
-game.round([p1,p2,p3])
+var game = new War(people)
+game.round(null, people)
