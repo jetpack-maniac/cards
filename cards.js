@@ -97,6 +97,50 @@ Card.prototype.toString = function(){
   return values[this.value] + " of " + suits[this.suit]
 }
 
+Card.prototype.unicode = function(){
+  var unisuit
+  var univalue
+
+  switch(this.suit){
+    case 0: // Diamonds
+      unisuit = 'c'
+      break;
+    case 1: // Clubs
+      unisuit = 'd'
+      break;
+    case 2: // Hearts
+      unisuit = 'b'
+      break;
+    case 3: // Spades
+      unisuit = 'a'
+      break;
+  }
+
+  switch(this.value){
+    case 14: // Ace
+      univalue = 1
+      break;
+    case 10: // Ten
+      univalue = 'a'
+      break;
+    case 11: // Jack
+      univalue = 'b'
+      break;
+    case 12: // Queen
+      univalue ='d'
+      break;
+    case 13: // King
+      univalue = 'e'
+      break;
+    default: // All other cards Two through Nine
+      univalue = this.value
+      break;
+  }
+
+  unicode = eval("'\\u{1f0" + unisuit + univalue +"}'")
+  return unicode
+}
+
 // Player Class
 
 function Player(name){
@@ -180,6 +224,7 @@ Blackjack.prototype.score = function(hand){
   var score = 0
   // for(i = 0; i < hand.length; i++){
   for(i in hand){
+    console.log(hand[i].unicode())
     if(hand[i].value < 11){
       score = score + hand[i].value
     }
