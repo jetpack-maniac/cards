@@ -40,8 +40,9 @@ Deck.prototype.cut = function(cuts){
 }
 
 Deck.prototype.faro = function(){
-  var left = this.cards.slice(0,26)
-  var right = this.cards.slice(26,52)
+  deckSize = this.cards.length
+  var left = this.cards.slice(0,deckSize/2)
+  var right = this.cards.slice(deckSize/2)
   this.cards = []
 
   for(var i = 0; i < 26; i++){
