@@ -143,6 +143,15 @@ Card.prototype.unicode = function(){
   return unicode
 }
 
+Card.prototype.color = function(){
+  switch(this.suit){
+    case 0: return 'red'
+    case 1: return 'black'
+    case 2: return 'red'
+    case 3: return 'black'
+  }
+}
+
 // Player Class
 
 function Player(name){
@@ -269,7 +278,7 @@ Poker.prototype.round = function(players){
     player.hand = player.hand.concat(this.deck.deal(5))
     console.log(player.name)
     for(i in player.hand){
-       console.log(player.hand[i].unicode())
+       console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + ';')
     }
   }
 }
