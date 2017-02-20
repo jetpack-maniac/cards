@@ -275,6 +275,7 @@ Poker.prototype.round = function(players){
   for(i in players){
     var player = players[i]
     player.hand = player.hand.concat(this.deck.deal(5))
+    player.hand = sort(player.hand)
     console.log(player.name)
     for(i in player.hand){
        console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + '; font-size:20px;')
@@ -283,6 +284,26 @@ Poker.prototype.round = function(players){
 }
 
 // End of Classes
+////////////////////////////////////////////////////////////////////////////////
+// Functions
+
+function sort(deck){
+  var sorted = new Array(52)
+  for(i in deck){
+    var card = deck[i]
+    sorted[((card.value*4)+card.suit)] = card
+    // console.log(((card.suit*13)+card.value))
+    // console.log(sorted[((card.suit*13)+card.value)])
+  }
+  for(i in sorted){
+    if(i == null){
+      rank.splice(i, 1)
+    }
+  }
+  return sorted
+}
+
+// End Functions
 ////////////////////////////////////////////////////////////////////////////////
 
 var p1 = new Player('Tom')
