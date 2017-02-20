@@ -254,6 +254,23 @@ Blackjack.prototype.score = function(hand){
   console.log(score)
 }
 
+// Poker Class
+
+function Poker(players){
+  this.players = players
+  this.deck = new Deck()
+  this.deck.shuffle()
+}
+
+Poker.prototype.round = function(players){
+  if(!players) players = this.players
+  for(i in players){
+    var player = players[i]
+    player.hand = player.hand.concat(this.deck.deal(5))
+    console.log(player.name, player.hand)
+  }
+}
+
 // End of Classes
 ////////////////////////////////////////////////////////////////////////////////
 
