@@ -52,7 +52,8 @@ Deck.prototype.faro = function(){
 }
 
 Deck.prototype.shuffle = function (){
-  var shuffles = Math.floor((Math.random() * 50) + 1)
+  var shuffles = Math.floor((Math.random() * 50) + 25)
+  console.log(shuffles)
   for(i = 0; i < shuffles; i++){
     this.cut()
     this.faro()
