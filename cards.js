@@ -7,14 +7,17 @@ var ranks = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eigh
 // Deck Class
 
 
-function Deck(){
+function Deck(decks){
+  if(!decks) decks = 1
   this.cards = []
   this.dealt = []
 
-  for(var suit = 0; suit < suits.length; suit++){
-    for(var rank in ranks){
-      var card = new Card(rank, suit)
-      this.cards.push(card)
+  for(i = 0; i < decks; i++){
+    for(var suit = 0; suit < suits.length; suit++){
+      for(var rank in ranks){
+        var card = new Card(rank, suit)
+        this.cards.push(card)
+      }
     }
   }
 }
