@@ -232,10 +232,10 @@ War.prototype.round = function(players, table){
 
 // Blackjack Class
 
-function Blackjack(players){
+function Blackjack(players, decks){
   this.players = players
   players.push(new Player('Dealer'))
-  this.deck = new Deck()
+  this.deck = new Deck(decks)
   this.deck.shuffle()
 }
 
