@@ -156,6 +156,7 @@ Card.prototype.color = function(){
 function Player(name){
   this.name = name
   this.hand = []
+  this.ai = true
 }
 
 ///// Game classes
@@ -235,7 +236,7 @@ function Blackjack(players){
 }
 
 Blackjack.prototype.gameloop = function(){
-
+  this.round()
 }
 
 Blackjack.prototype.round = function(players){
