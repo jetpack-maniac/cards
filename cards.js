@@ -53,7 +53,7 @@ Deck.prototype.faro = function(){
 
 Deck.prototype.shuffle = function (){
   var shuffles = Math.floor((Math.random() * 50) + 25)
-  console.log(shuffles)
+  console.log(shuffles + ' shuffles')
   for(i = 0; i < shuffles; i++){
     this.cut()
     this.faro()
@@ -156,7 +156,8 @@ function Player(name){
 
 function War(players){
   this.players = players
-  var defeated = []
+  this.defeated = []
+  this.rounds = 0
   this.deck = new Deck()
   this.deck.shuffle()
   var handSize = Math.floor(this.deck.cards.length / players.length)
@@ -171,9 +172,10 @@ function War(players){
 War.prototype.gameloop = function(){
   this.round()
   for(i in this.players){
-    if(this.players.hand.length == 0){
-      this.players[i].push(this.defeated)
-      console.log(this.players[i].name + ' was defeated.')
+    if(this.players[i].hand.length == 0){
+      this.defeated.push(this.players[i])
+      console.log(this.players[i].name + ' was defeated after ' + this.rounds + ' rounds.')
+      this.players.splice(i, 1)
     }
   }
 }
@@ -213,6 +215,7 @@ War.prototype.round = function(players, table){
     this.round(ties, table)
   }
   this.players[highest.player].hand = this.players[highest.player].hand.concat(table)
+  this.rounds = this.rounds + 1
 }
 
 // Blackjack Class
@@ -259,5 +262,10 @@ var p2 = new Player('Dick')
 var p3 = new Player('Harry')
 var people = [p1,p2,p3]
 
-var game = new Blackjack(people)
-game.round(people)
+var game = new War(people)
+
+while(game.players.length > 1){
+  game.gameloop()
+}
+
+console.log(game.players[0].name + ' won.')
