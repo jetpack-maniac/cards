@@ -155,6 +155,7 @@ function Player(name){
 
 function War(players){
   this.players = players
+  var defeated = []
   this.deck = new Deck()
   this.deck.shuffle()
   var handSize = Math.floor(this.deck.cards.length / players.length)
@@ -163,6 +164,16 @@ function War(players){
   }
   for(var i = 0; i < this.deck.cards.length; i++){
     this.players[i].hand = this.players[i].hand.concat(this.deck.deal(1))
+  }
+}
+
+War.prototype.gameloop = function(){
+  this.round()
+  for(i in this.players){
+    if(this.players.hand.length == 0){
+      this.players[i].push(this.defeated)
+      console.log(this.players[i].name + ' was defeated.')
+    }
   }
 }
 
