@@ -267,7 +267,10 @@ Poker.prototype.round = function(players){
   for(i in players){
     var player = players[i]
     player.hand = player.hand.concat(this.deck.deal(5))
-    console.log(player.name, player.hand)
+    console.log(player.name)
+    for(i in player.hand){
+       console.log(player.hand[i].unicode())
+    }
   }
 }
 
@@ -279,10 +282,12 @@ var p2 = new Player('Dick')
 var p3 = new Player('Harry')
 var people = [p1,p2,p3]
 
-var game = new War(people)
+var game = new Poker(people)
 
-while(game.players.length > 1){
-  game.gameloop()
-}
+game.round()
 
-console.log(game.players[0].name + ' won.')
+// while(game.players.length > 1){
+//   game.gameloop()
+// }
+//
+// console.log(game.players[0].name + ' won.')
