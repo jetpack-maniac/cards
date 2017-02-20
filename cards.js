@@ -249,7 +249,6 @@ Blackjack.prototype.score = function(hand){
   var score = 0
   // for(i = 0; i < hand.length; i++){
   for(i in hand){
-    console.log(hand[i].unicode())
     if(hand[i].value < 11){
       score = score + hand[i].value
     }
@@ -278,7 +277,7 @@ Poker.prototype.round = function(players){
     player.hand = player.hand.concat(this.deck.deal(5))
     console.log(player.name)
     for(i in player.hand){
-       console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + ';')
+       console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + '; font-size:20px;')
     }
   }
 }
