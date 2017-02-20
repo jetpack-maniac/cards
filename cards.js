@@ -1,5 +1,5 @@
 var suits = ['Diamonds','Clubs','Hearts','Spades']
-var values = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 10:'Ten', 11:'Jack', 12:'Queen', 13:'King', 14:'Ace'}
+var ranks = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 10:'Ten', 11:'Jack', 12:'Queen', 13:'King', 14:'Ace'}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Classes
@@ -12,9 +12,8 @@ function Deck(){
   this.dealt = []
 
   for(var suit = 0; suit < suits.length; suit++){
-    // for(var value = 0; value < values.length; value++){
-    for(var value in values){
-      var card = new Card(value, suit)
+    for(var rank in ranks){
+      var card = new Card(rank, suit)
       this.cards.push(card)
     }
   }
@@ -90,18 +89,18 @@ Deck.prototype.status = function(){
 
 // Card Class
 
-function Card(value, suit){
-  this.value = parseInt(value)
+function Card(rank, suit){
+  this.rank = parseInt(rank)
   this.suit = suit
 }
 
 Card.prototype.toString = function(){
-  return values[this.value] + " of " + suits[this.suit]
+  return ranks[this.rank] + " of " + suits[this.suit]
 }
 
 Card.prototype.unicode = function(){
   var unisuit
-  var univalue
+  var unirank
 
   switch(this.suit){
     case 0: // Diamonds
@@ -118,28 +117,28 @@ Card.prototype.unicode = function(){
       break;
   }
 
-  switch(this.value){
+  switch(this.rank){
     case 14: // Ace
-      univalue = 1
+      unirank = 1
       break;
     case 10: // Ten
-      univalue = 'a'
+      unirank = 'a'
       break;
     case 11: // Jack
-      univalue = 'b'
+      unirank = 'b'
       break;
     case 12: // Queen
-      univalue ='d'
+      unirank ='d'
       break;
     case 13: // King
-      univalue = 'e'
+      unirank = 'e'
       break;
     default: // All other cards Two through Nine
-      univalue = this.value
+      unirank = this.rank
       break;
   }
 
-  unicode = eval("'\\u{1f0" + unisuit + univalue +"}'")
+  unicode = eval("'\\u{1f0" + unisuit + unirank +"}'")
   return unicode
 }
 
@@ -194,17 +193,17 @@ War.prototype.round = function(players, table){
   if(!players) players = this.players
   var highest = {
     player:-1,
-    value:0
+    rank:0
   }
   var ties = []
   for(var i = 0; i < players.length; i++){
     var card = this.players[i].hand.shift()
-    if(card.value > highest.value){
-      highest.value = card.value
+    if(card.rank > highest.rank){
+      highest.rank = card.rank
       highest.player = i
       ties = []
     }
-    if(card.value == highest){
+    if(card.rank == highest){
       ties.push(i)
       ties.push(highest.player)
     }
@@ -249,13 +248,13 @@ Blackjack.prototype.score = function(hand){
   var score = 0
   // for(i = 0; i < hand.length; i++){
   for(i in hand){
-    if(hand[i].value < 11){
-      score = score + hand[i].value
+    if(hand[i].rank < 11){
+      score = score + hand[i].rank
     }
-    else if(hand[i].value == 14){
+    else if(hand[i].rank == 14){
       score = score + 11
     }
-    else if(hand[i].value >= 11){
+    else if(hand[i].rank >= 11){
       score = score + 10
     }
   }
@@ -291,9 +290,7 @@ function sort(deck){
   var sorted = new Array(52)
   for(i in deck){
     var card = deck[i]
-    sorted[((card.value*4)+card.suit)] = card
-    // console.log(((card.suit*13)+card.value))
-    // console.log(sorted[((card.suit*13)+card.value)])
+    sorted[((card.rank*4)+card.suit)] = card
   }
   for(i in sorted){
     if(i == null){
