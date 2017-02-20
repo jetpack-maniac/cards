@@ -234,6 +234,10 @@ function Blackjack(players){
   this.deck.shuffle()
 }
 
+Blackjack.prototype.gameloop = function(){
+
+}
+
 Blackjack.prototype.round = function(players){
   if(!players) players = this.players
   for(i in players){
