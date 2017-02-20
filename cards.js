@@ -296,16 +296,15 @@ Poker.prototype.round = function(players){
 // Functions
 
 function sort(deck){
-  var sorted = new Array(52)
+  var deckSize = suits.length*_.keys(ranks).length
+  var sorted = new Array(deckSize)
+  for(i = 0; i < deckSize; i++) sorted[i] = []
   for(i in deck){
     var card = deck[i]
-    sorted[(((card.rank-2)*4)+card.suit)] = card
+    var score = (((card.rank-2)*4)+card.suit)
+    sorted[score].push(card)
   }
-  for(i in sorted){
-    if(i == null){
-      rank.splice(i, 1)
-    }
-  }
+  sorted = _.flatten(sorted)
   return sorted
 }
 
