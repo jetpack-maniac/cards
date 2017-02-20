@@ -299,7 +299,7 @@ function sort(deck){
   var sorted = new Array(52)
   for(i in deck){
     var card = deck[i]
-    sorted[((card.rank*4)+card.suit)] = card
+    sorted[(((card.rank-2)*4)+card.suit)] = card
   }
   for(i in sorted){
     if(i == null){
@@ -317,7 +317,7 @@ var p2 = new Player('Dick')
 var p3 = new Player('Harry')
 var people = [p1,p2,p3]
 
-var game = new Blackjack(people)
+var game = new Poker(people)
 
 game.round()
 
