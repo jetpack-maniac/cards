@@ -23,15 +23,12 @@ Blackjack.prototype.round = function(players){
     var dealer = this.dealer
     player.hand = player.hand.concat(this.deck.deal(2))
     console.log(player.name, player.hand)
-    for(i in player.hand){
-       console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + '; font-size:20px;')
-    }
+    this.printHand(players[i])
     var score = this.score(player.hand)
     if(score > highest.score && score <= 21){
       highest.player = player
       highest.score = score
     }
-    console.log(score)
   }
   // Dealer AI begins
   score = this.score(dealer.hand)
@@ -44,8 +41,8 @@ Blackjack.prototype.round = function(players){
       highest.player = dealer
       highest.score = score
     }
-    console.log(score)
   }
+  console.log('Dealer: ' + score)
 }
 
 Blackjack.prototype.score = function(hand){
@@ -76,4 +73,20 @@ Blackjack.prototype.split = function(player){
   if(player.hand[0].rank != player.hand[1].rank) return
   player.splitHand.push(player.hand[1])
   player.hand.splice(1, 1)
+}
+
+Blackjack.prototype.printHand = function(player){
+  if(!player) return
+  var hand = player.hand
+  var splitHand = player.splitHand
+  for(i in hand){
+     console.log('%c ' + hand[i].unicode(), 'color:' + hand[i].color() + '; font-size:20px;')
+  }
+  console.log('Score: ' + this.score(hand))
+  if(splitHand.length > 0){
+    for(i in splitHand){
+       console.log('%c ' + splitHand[i].unicode(), 'color:' + splitHand[i].color() + '; font-size:20px;')
+    }
+    console.log('Score: ' + this.score(splitHand))
+  }
 }
