@@ -71,10 +71,9 @@ Blackjack.prototype.score = function(hand){
 
 Blackjack.prototype.split = function(player){
   if(!player) return
+  if(player.name == 'Dealer') return
   if(player.hand[0].rank != player.hand[1].rank) return
-  // player.splitHand.shift(player.hand[_.last])
   player.splitHand.push(player.hand.shift())
-  // player.hand.splice(_.last, 1)
 }
 
 Blackjack.prototype.printHand = function(player){
