@@ -258,7 +258,7 @@ Blackjack.prototype.round = function(players){
        console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + '; font-size:20px;')
     }
     var score = this.score(player.hand)
-    if(score > highest.score){
+    if(score > highest.score && score <= 21){
       highest.player = player
       highest.score = score
     }
