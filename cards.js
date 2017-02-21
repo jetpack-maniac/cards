@@ -268,6 +268,7 @@ Blackjack.prototype.round = function(players){
   // Dealer AI begins
   score = this.score(this.dealer.hand)
   while(highest.player != this.dealer && score < highest.score){
+    if(score >= 17) break;
     this.dealer.hand = this.dealer.hand.concat(this.deck.deal(1))
     console.log('%c ' + _.last(this.dealer.hand).unicode(), 'color:' + _.last(this.dealer.hand).color() + '; font-size:20px;')
     score = this.score(this.dealer.hand)
