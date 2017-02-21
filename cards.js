@@ -280,6 +280,7 @@ Blackjack.prototype.round = function(players){
 
 Blackjack.prototype.score = function(hand){
   var score = 0
+  var aceCount = 0
   // for(i = 0; i < hand.length; i++){
   for(i in hand){
     if(hand[i].rank < 11){
@@ -287,10 +288,15 @@ Blackjack.prototype.score = function(hand){
     }
     else if(hand[i].rank == 14){
       score = score + 11
+      aceCount = aceCount + 1
     }
     else if(hand[i].rank >= 11){
       score = score + 10
     }
+  }
+  while(aceCount > 0 && score > 21){
+    score = score - 10
+    aceCount = aceCount -1
   }
   return score
 }
