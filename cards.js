@@ -160,6 +160,7 @@ Card.prototype.color = function(){
 function Player(name){
   this.name = name
   this.hand = []
+  this.splitHand = []
   this.ai = true
 }
 

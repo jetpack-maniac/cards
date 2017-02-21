@@ -70,3 +70,10 @@ Blackjack.prototype.score = function(hand){
   }
   return score
 }
+
+Blackjack.prototype.split = function(player){
+  if(!player) return
+  if(player.hand[0].rank != player.hand[1].rank) return
+  player.splitHand.push(player.hand[1])
+  player.hand.splice(1, 1)
+}
