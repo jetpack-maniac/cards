@@ -64,6 +64,7 @@ Deck.prototype.shuffle = function (){
 
 Deck.prototype.deal = function(number){
   if(!number) number = 1
+  if(number > this.cards.length) throw new Error('Deck ran out of cards.')
   var cards = []
   for(var i = 0; i < number; i++){
     var card = this.cards.pop()
