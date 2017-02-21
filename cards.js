@@ -246,6 +246,10 @@ Blackjack.prototype.gameloop = function(){
 
 Blackjack.prototype.round = function(players){
   if(!players) players = this.players
+  var highest = {
+    player:-1,
+    score:0
+  }
   for(i in players){
     var player = players[i]
     player.hand = player.hand.concat(this.deck.deal(2))
@@ -253,13 +257,25 @@ Blackjack.prototype.round = function(players){
     for(i in player.hand){
        console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + '; font-size:20px;')
     }
-    console.log(this.score(player.hand))
+    var score = this.score(player.hand)
+    if(score > highest.score){
+      highest.player = player
+      highest.score = score
+    }
+    console.log(score)
   }
   // Dealer AI begins
-  while(this.score(this.dealer.hand) < 21){
+  score = this.score(this.dealer.hand)
+  while(score < 21 || highest.player != this.dealer){
     this.dealer.hand = this.dealer.hand.concat(this.deck.deal(1))
+    console.log('%c ' + _.last(this.dealer.hand).unicode(), 'color:' + _.last(this.dealer.hand).color() + '; font-size:20px;')
+    score = this.score(this.dealer.hand)
+    if(score > highest.score){
+      highest.player = player
+      highest.score = score
+    }
+    console.log(score)
   }
-  console.log(this.score(this.dealer.hand))
 }
 
 Blackjack.prototype.score = function(hand){
