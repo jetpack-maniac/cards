@@ -234,7 +234,8 @@ War.prototype.round = function(players, table){
 
 function Blackjack(players, decks){
   this.players = players
-  players.push(new Player('Dealer'))
+  this.dealer = new Player('Dealer')
+  players.push(this.dealer)
   this.deck = new Deck(decks)
   this.deck.shuffle()
 }
@@ -252,8 +253,13 @@ Blackjack.prototype.round = function(players){
     for(i in player.hand){
        console.log('%c ' + player.hand[i].unicode(), 'color:' + player.hand[i].color() + '; font-size:20px;')
     }
-    this.score(player.hand)
+    console.log(this.score(player.hand))
   }
+  // Dealer AI begins
+  while(this.score(this.dealer.hand) < 21){
+    this.dealer.hand = this.dealer.hand.concat(this.deck.deal(1))
+  }
+  console.log(this.score(this.dealer.hand))
 }
 
 Blackjack.prototype.score = function(hand){
@@ -270,7 +276,7 @@ Blackjack.prototype.score = function(hand){
       score = score + 10
     }
   }
-  console.log(score)
+  return score
 }
 
 // Poker Class
