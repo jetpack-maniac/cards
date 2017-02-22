@@ -5,6 +5,10 @@ var people = [p1,p2,p3]
 
 var game = new Blackjack(people)
 
+$(function(){
+  var gamename = $('h1.gamename').text(game.name)
+})
+
 game.round()
 
 // while(game.players.length > 1){

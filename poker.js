@@ -4,6 +4,7 @@ function Poker(players){
   this.players = players
   this.deck = new Deck()
   this.deck.shuffle()
+  this.name = 'Poker'
 }
 
 Poker.prototype.round = function(players){

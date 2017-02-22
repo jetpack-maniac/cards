@@ -6,6 +6,7 @@ function War(players){
   this.rounds = 0
   this.deck = new Deck()
   this.deck.shuffle()
+  this.name = 'War'
   var handSize = Math.floor(this.deck.cards.length / players.length)
   for(var i = 0; i < players.length; i++){
     this.players[i].hand = this.players[i].hand.concat(this.deck.deal(handSize))

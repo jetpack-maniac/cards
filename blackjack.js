@@ -6,6 +6,7 @@ function Blackjack(players, decks){
   players.push(this.dealer)
   this.deck = new Deck(decks)
   this.deck.shuffle()
+  this.name = 'Blackjack'
 }
 
 Blackjack.prototype.gameloop = function(){
