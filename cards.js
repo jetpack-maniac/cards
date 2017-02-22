@@ -102,7 +102,7 @@ Card.prototype.toString = function(){
   return ranks[this.rank] + " of " + suits[this.suit]
 }
 
-Card.prototype.unicode = function(){
+Card.prototype.unicode = function(console){
   var unisuit
   var unirank
 
@@ -142,7 +142,8 @@ Card.prototype.unicode = function(){
       break;
   }
 
-  unicode = eval("'\\u{1f0" + unisuit + unirank +"}'")
+  if(console == 1) unicode = eval("'\\u{1f0" + unisuit + unirank +"}'")
+  else unicode = '&#x1f0' + unisuit + unirank + ';'
   return unicode
 }
 

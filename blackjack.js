@@ -37,7 +37,7 @@ Blackjack.prototype.round = function(players){
   while(highest.player != dealer && score < highest.score){
     if(score >= 17) break;
     this.hit(dealer)
-    console.log('%c ' + _.last(dealer.hand).unicode(), 'color:' + _.last(dealer.hand).color() + '; font-size:20px;')
+    console.log('%c ' + _.last(dealer.hand).unicode(1), 'color:' + _.last(dealer.hand).color() + '; font-size:20px;')
     score = this.score(dealer.hand)
     if(score > highest.score){
       highest.player = dealer
@@ -88,12 +88,12 @@ Blackjack.prototype.printHand = function(player){
   var hand = player.hand
   var splitHand = player.splitHand
   for(i in hand){
-     console.log('%c ' + hand[i].unicode(), 'color:' + hand[i].color() + '; font-size:20px;')
+     console.log('%c ' + hand[i].unicode(1), 'color:' + hand[i].color() + '; font-size:20px;')
   }
   console.log('Score: ' + this.score(hand))
   if(splitHand.length > 0){
     for(i in splitHand){
-      console.log('%c ' + splitHand[i].unicode(), 'color:' + splitHand[i].color() + '; font-size:20px;')
+      console.log('%c ' + splitHand[i].unicode(1), 'color:' + splitHand[i].color() + '; font-size:20px;')
     }
     console.log('Score: ' + this.score(splitHand))
   }
