@@ -7,6 +7,10 @@ function Poker(players){
   this.name = 'Poker'
 }
 
+Poker.prototype.gameloop = function(){
+  this.round()
+}
+
 Poker.prototype.round = function(players){
   if(!players) players = this.players
   for(i in players){
