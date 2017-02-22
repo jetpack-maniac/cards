@@ -35,7 +35,7 @@ Blackjack.prototype.round = function(players){
   score = this.score(dealer.hand)
   while(highest.player != dealer && score < highest.score){
     if(score >= 17) break;
-    dealer.hand = dealer.hand.concat(this.deck.deal(1))
+    this.hit(dealer)
     console.log('%c ' + _.last(dealer.hand).unicode(), 'color:' + _.last(dealer.hand).color() + '; font-size:20px;')
     score = this.score(dealer.hand)
     if(score > highest.score){
@@ -44,6 +44,12 @@ Blackjack.prototype.round = function(players){
     }
   }
   console.log('Dealer: ' + score)
+}
+
+Blackjack.prototype.hit = function(player, split){
+  if(this.score(player.hand) >= 21) return
+  if(split == true) player.splitHand = player.splitHand.concat(this.deck.deal(1))
+  else player.hand = player.hand.concat(this.deck.deal(1))
 }
 
 Blackjack.prototype.score = function(hand){
