@@ -23,3 +23,7 @@ Poker.prototype.round = function(players){
     }
   }
 }
+
+Poker.prototype.score = function(hand){
+  if(!hand) return
+}
