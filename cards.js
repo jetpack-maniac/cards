@@ -1,4 +1,4 @@
-suits = ['Diamonds','Clubs','Hearts','Spades']
+suits = ['Clubs','Diamonds','Hearts','Spades']
 ranks = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 10:'Ten', 11:'Jack', 12:'Queen', 13:'King', 14:'Ace'}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -106,11 +106,11 @@ Card.prototype.unicode = function(console){
   var unirank
 
   switch(this.suit){
-    case 0: // Diamonds
-      unisuit = 'c'
-      break;
-    case 1: // Clubs
+    case 0: // Clubs
       unisuit = 'd'
+      break;
+    case 1: // Diamonds
+      unisuit = 'c'
       break;
     case 2: // Hearts
       unisuit = 'b'
@@ -148,8 +148,8 @@ Card.prototype.unicode = function(console){
 
 Card.prototype.color = function(){
   switch(this.suit){
-    case 0: return 'red'
-    case 1: return 'black'
+    case 0: return 'black'
+    case 1: return 'red'
     case 2: return 'red'
     case 3: return 'black'
   }
