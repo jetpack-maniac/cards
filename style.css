@@ -1,0 +1,15 @@
+h1 {
+  font-size: 50px;
+}
+
+.players {
+  font-size: 60px;
+}
+
+.diamonds, .hearts {
+  color: red;
+}
+
+.clubs, .spades {
+  color: black;
+}
