@@ -28,6 +28,7 @@ Blackjack.prototype.round = function(players){
       highest.player = player
       highest.score = score
     }
+    this.split(player)
   }
   // Dealer AI begins
   score = this.score(dealer.hand)
