@@ -27,6 +27,7 @@ $(function(){
     }
     player.append(hand)
     players.append(player)
+    if(game.players[i] != _.last(game.players)) players.append('<hr>')
   }
 })
 
