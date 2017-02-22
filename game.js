@@ -5,15 +5,6 @@ var people = [p1,p2,p3]
 
 var game = new Blackjack(people)
 
-// function parseHand(hand){
-//   if(!hand) return
-//   var cards = ''
-//   for(i in hand){
-//     var cards = cards + hand[i].unicode()
-//   }
-//   return cards
-// }
-
 $(function(){
   var gamename = $('h1.gamename').text(game.name)
   var players = $('.players')
@@ -30,10 +21,4 @@ $(function(){
   }
 })
 
-game.round()
-
-// while(game.players.length > 1){
-//   game.gameloop()
-// }
-//
-// console.log(game.players[0].name + ' won.')
+game.gameloop()
