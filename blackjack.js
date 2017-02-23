@@ -5,7 +5,6 @@ function Blackjack(players, decks){
   this.dealer = new Player('Dealer')
   players.push(this.dealer)
   this.deck = new Deck(decks)
-  this.deck.shuffle()
   this.name = 'Blackjack'
 }
 
@@ -48,18 +47,18 @@ Blackjack.prototype.hit = function(player, split){
 Blackjack.prototype.score = function(hand){
   var score = 0
   var aceCount = 0
-  for(i in hand){
-    if(hand[i].rank < 11){
-      score = score + hand[i].rank
+  _.forEach(hand, function(card){
+    if(card.rank < 11){
+      score = score + card.rank
     }
-    else if(hand[i].rank == 14){
+    else if(card.rank == 14){
       score = score + 11
       aceCount = aceCount + 1
     }
-    else if(hand[i].rank >= 11){
+    else if(card.rank >= 11){
       score = score + 10
     }
-  }
+  })
   while(aceCount > 0 && score > 21){
     score = score - 10
     aceCount = aceCount - 1
