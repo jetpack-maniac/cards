@@ -32,7 +32,6 @@ Blackjack.prototype.dealerTurn = function(){
     if(player.name != 'Dealer'){
     if(_this.score(player.hand) > 21) return false
       while(_this.score(_this.dealer.hand) < _this.score(player.hand) && _this.score(_this.dealer.hand) < 17){
-        console.log('Loop')
         _this.hit(dealer)
       }
     }

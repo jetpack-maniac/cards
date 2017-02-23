@@ -21,42 +21,47 @@ function clearButtons(){
   $('div.generic').text('')
 }
 
-function drawPlayers(players){
-  for(var i in game.players){
-    var player = $('<div class="player">').text(game.players[i].name)
-    var hand = $('<div class="hand">')
-    var score = $('<div class="score">')
-    for(j in game.players[i].hand){
-      var suit = _.lowerCase(suits[game.players[i].hand[j].suit])
-      var card = $('<span>').addClass(suit).html(game.players[i].hand[j].unicode())
-      hand.append(card)
-    }
-    if(game.players[i].splitHand.length > 0){
-      var splitScore = $('<div class="splitScore">')
-      var splitHand = $('<div class="splitHand">')
-      for(j in game.players[i].splitHand){
-        var suit = _.lowerCase(suits[game.players[i].splitHand[j].suit])
-        var card = $('<span>').addClass(suit).html(game.players[i].splitHand[j].unicode())
-        splitHand.append(card)
-      }
-      splitScore.append('Score: ' + game.score(game.players[i].splitHand))
-      splitHand.append(splitScore)
-      player.append(splitHand)
-    }
-    score.append('Score: ' + game.score(game.players[i].hand))
-    hand.append(score)
-    player.append(hand)
-    players.append(player)
-    if(game.players[i] != _.last(game.players)) players.append('<hr>')
+function drawPlayers(player){
+  var playerDiv = $('<div class="player">').text(player.name)
+  var handDiv = $('<div class="hand">')
+  var scoreDiv = $('<div class="score">')
+  for(j in player.hand){
+    var suit = _.lowerCase(suits[player.hand[j].suit])
+    var card = $('<span>').addClass(suit).html(player.hand[j].unicode())
+    handDiv.append(card)
   }
+  if(player.splitHand.length > 0){
+    var splitScoreDiv = $('<div class="splitScore">')
+    var splitHandDiv = $('<div class="splitHand">')
+    for(j in player.splitHand){
+      var suit = _.lowerCase(suits[player.splitHand[j].suit])
+      var card = $('<span>').addClass(suit).html(player.splitHand[j].unicode())
+      splitHandDiv.append(card)
+    }
+    splitScoreDiv.append('Score: ' + game.score(player.splitHand))
+    splitHandDiv.append(splitScore)
+    playerDiv.append(splitHand)
+  }
+  scoreDiv.append('Score: ' + game.score(player.hand))
+  handDiv.append(scoreDiv)
+  playerDiv.append(handDiv)
+  // playersDiv.append(playerDiv)
+  if(player != _.last(game.players)) playerDiv.append('<hr>')
+  return playerDiv
+}
+
+function drawDealer(player){
+
 }
 
 function drawGame(){
   $('div.players').text('')
   clearButtons()
+  var gamename = $('h1.gamename').text(game.name)
+  var playersDiv = $('.players')
   $(function(){
     var newRound = $('<button>').text('New Round').on('click', function(){
-      $('div.players').text('')
+      // $('div.players').text('')
       game.gameloop()
       drawGame()
     })
@@ -71,8 +76,8 @@ function drawGame(){
     newRound.appendTo($('div.generic'))
     hit.appendTo($('div.generic'))
     stand.appendTo($('div.generic'))
-    var gamename = $('h1.gamename').text(game.name)
-    var players = $('.players')
-    drawPlayers(players)
+    _.forEach(game.players, function(player){
+      playersDiv.append(drawPlayers(player))
+    })
   })
 }
