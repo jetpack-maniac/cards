@@ -7,43 +7,49 @@ function Blackjack(players, decks){
   this.deck = new Deck(decks)
   this.deck.shuffle()
   this.name = 'Blackjack'
+  this.highest = {
+    player:-1,
+    score:0
+  }
 }
 
 Blackjack.prototype.gameloop = function(){
   var _this = this
   _.forEach(this.players, function(player){_this.clearHand(player)})
   this.deck.shuffle()
+  this.highest = {
+    player:-1,
+    score:0
+  }
   this.round()
 }
 
 Blackjack.prototype.round = function(players){
   if(!players) players = this.players
-  var highest = {
-    player:-1,
-    score:0
-  }
   var _this = this
   _.forEach(players, function(player){
   // for(i in players){
     // var player = players[i]
     player.hand = player.hand.concat(_this.deck.deal(2))
     var score = _this.score(player.hand)
-    if(score > highest.score && score <= 21){
-      highest.player = player
-      highest.score = score
+    if(score > _this.highest.score && score <= 21){
+      _this.highest.player = player
+      _this.highest.score = score
     }
     _this.split(player)
   })
-  // Dealer AI begins
+}
+
+Blackjack.prototype.dealerTurn = function(){
   var dealer = this.dealer
   score = this.score(dealer.hand)
-  while(highest.player != dealer && score < highest.score){
+  while(this.highest.player != dealer && score < this.highest.score){
     if(score >= 17) break;
     this.hit(dealer)
     score = this.score(dealer.hand)
-    if(score > highest.score){
-      highest.player = dealer
-      highest.score = score
+    if(score > this.highest.score){
+      this.highest.player = dealer
+      this.highest.score = score
     }
   }
 }
@@ -86,7 +92,6 @@ Blackjack.prototype.split = function(player){
 
 Blackjack.prototype.clearHand = function(player){
   if(!player) return
-  console.log(player, this.deck.cards)
   this.deck.cards = this.deck.cards.concat(player.hand)
   player.hand = []
   if(player.splitHand.length > 0){
