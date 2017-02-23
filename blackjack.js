@@ -7,20 +7,12 @@ function Blackjack(players, decks){
   this.deck = new Deck(decks)
   this.deck.shuffle()
   this.name = 'Blackjack'
-  this.highest = {
-    player:-1,
-    score:0
-  }
 }
 
 Blackjack.prototype.gameloop = function(){
   var _this = this
   _.forEach(this.players, function(player){_this.clearHand(player)})
   this.deck.shuffle()
-  this.highest = {
-    player:-1,
-    score:0
-  }
   this.round()
 }
 
@@ -30,25 +22,21 @@ Blackjack.prototype.round = function(players){
   _.forEach(players, function(player){
     player.hand = player.hand.concat(_this.deck.deal(2))
     var score = _this.score(player.hand)
-    if(score > _this.highest.score && score <= 21){
-      _this.highest.player = player
-      _this.highest.score = score
-    }
   })
 }
 
 Blackjack.prototype.dealerTurn = function(){
   var dealer = this.dealer
-  score = this.score(dealer.hand)
-  while(this.highest.player != dealer && score < this.highest.score){
-    if(score >= 17) break;
-    this.hit(dealer)
-    score = this.score(dealer.hand)
-    if(score > this.highest.score){
-      this.highest.player = dealer
-      this.highest.score = score
+  var _this = this
+  _.forEach(this.players, function(player){
+    if(_this.score(_this.dealer) >= 17) return false
+    if(player.name != 'Dealer'){
+      while(_this.score(_this.dealer.hand) < _this.score(player.hand) && _this.score(_this.dealer.hand) < 17){
+        console.log('Loop')
+        _this.hit(dealer)
+      }
     }
-  }
+  })
 }
 
 Blackjack.prototype.hit = function(player, split){
@@ -60,7 +48,6 @@ Blackjack.prototype.hit = function(player, split){
 Blackjack.prototype.score = function(hand){
   var score = 0
   var aceCount = 0
-  // for(i = 0; i < hand.length; i++){
   for(i in hand){
     if(hand[i].rank < 11){
       score = score + hand[i].rank
