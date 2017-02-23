@@ -28,15 +28,12 @@ Blackjack.prototype.round = function(players){
   if(!players) players = this.players
   var _this = this
   _.forEach(players, function(player){
-  // for(i in players){
-    // var player = players[i]
     player.hand = player.hand.concat(_this.deck.deal(2))
     var score = _this.score(player.hand)
     if(score > _this.highest.score && score <= 21){
       _this.highest.player = player
       _this.highest.score = score
     }
-    _this.split(player)
   })
 }
 
