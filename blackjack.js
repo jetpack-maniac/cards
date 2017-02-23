@@ -10,6 +10,9 @@ function Blackjack(players, decks){
 }
 
 Blackjack.prototype.gameloop = function(){
+  var _this = this
+  _.forEach(this.players, function(player){_this.clearHand(player)})
+  this.deck.shuffle()
   this.round()
 }
 
@@ -79,6 +82,17 @@ Blackjack.prototype.split = function(player){
   if(player.name == 'Dealer') return
   if(player.hand[0].rank != player.hand[1].rank) return
   player.splitHand.push(player.hand.shift())
+}
+
+Blackjack.prototype.clearHand = function(player){
+  if(!player) return
+  console.log(player, this.deck.cards)
+  this.deck.cards = this.deck.cards.concat(player.hand)
+  player.hand = []
+  if(player.splitHand.length > 0){
+    this.deck.cards = this.deck.cards.concat(player.splitHand)
+    player.splitHand = []
+  }
 }
 
 Blackjack.prototype.printHand = function(player){
