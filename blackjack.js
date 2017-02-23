@@ -19,18 +19,20 @@ Blackjack.prototype.round = function(players){
     player:-1,
     score:0
   }
-  for(i in players){
-    var player = players[i]
-    var dealer = this.dealer
-    player.hand = player.hand.concat(this.deck.deal(2))
-    var score = this.score(player.hand)
+  var _this = this
+  _.forEach(players, function(player){
+  // for(i in players){
+    // var player = players[i]
+    player.hand = player.hand.concat(_this.deck.deal(2))
+    var score = _this.score(player.hand)
     if(score > highest.score && score <= 21){
       highest.player = player
       highest.score = score
     }
-    this.split(player)
-  }
+    _this.split(player)
+  })
   // Dealer AI begins
+  var dealer = this.dealer
   score = this.score(dealer.hand)
   while(highest.player != dealer && score < highest.score){
     if(score >= 17) break;
@@ -83,14 +85,14 @@ Blackjack.prototype.printHand = function(player){
   if(!player) return
   var hand = player.hand
   var splitHand = player.splitHand
-  for(i in hand){
-     console.log('%c ' + hand[i].unicode(1), 'color:' + hand[i].color() + '; font-size:20px;')
-  }
+  _.forEach(hand, function(card){
+     console.log('%c ' + card.unicode(1), 'color:' + card.color() + '; font-size:20px;')
+  })
   console.log('Score: ' + this.score(hand))
   if(splitHand.length > 0){
-    for(i in splitHand){
-      console.log('%c ' + splitHand[i].unicode(1), 'color:' + splitHand[i].color() + '; font-size:20px;')
-    }
+    _.forEach(splitHand, function(card){
+      console.log('%c ' + card.unicode(1), 'color:' + card.color() + '; font-size:20px;')
+    })
     console.log('Score: ' + this.score(splitHand))
   }
 }
