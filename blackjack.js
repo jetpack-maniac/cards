@@ -10,7 +10,10 @@ function Blackjack(players, decks){
 
 Blackjack.prototype.gameloop = function(){
   var _this = this
-  _.forEach(this.players, function(player){_this.clearHand(player)})
+  _.forEach(this.players, function(player){
+    _this.clearHand(player)
+    player.turnOver = false
+  })
   this.deck.shuffle()
   this.round()
 }

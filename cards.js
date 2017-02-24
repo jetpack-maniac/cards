@@ -164,7 +164,7 @@ function Player(name){
   this.name = name
   this.hand = []
   this.splitHand = []
-  this.ai = true
+  this.turnOver = false
 }
 
 // End of Classes
