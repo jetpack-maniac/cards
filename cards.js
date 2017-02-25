@@ -1,5 +1,5 @@
-suits = ['Clubs','Diamonds','Hearts','Spades']
-ranks = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 10:'Ten', 11:'Jack', 12:'Queen', 13:'King', 14:'Ace'}
+suits = ['Clubs','Diamonds','Hearts','Spades'];
+ranks = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 10:'Ten', 11:'Jack', 12:'Queen', 13:'King', 14:'Ace'};
 
 ////////////////////////////////////////////////////////////////////////////////
 // Classes
@@ -8,100 +8,97 @@ ranks = {2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 
 
 
 function Deck(decks){
-  if(!decks) decks = 1
-  this.cards = []
-  this.dealt = []
+  if(!decks) decks = 1;
+  this.cards = [];
+  this.dealt = [];
 
   for(var i = 0; i < decks; i++){
     for(var suit = 0; suit < suits.length; suit++){
       for(var rank in ranks){
-        var card = new Card(rank, suit)
-        this.cards.push(card)
+        var card = new Card(rank, suit);
+        this.cards.push(card);
       }
     }
   }
 }
 
 Deck.prototype.cut = function(cuts){
-  if(!cuts) cuts = Math.floor((Math.random() * 9) + 1)
-  var packetSize = Math.floor(this.cards.length / cuts)
-  var packets = []
+  if(!cuts) cuts = Math.floor((Math.random() * 9) + 1);
+  var packetSize = Math.floor(this.cards.length / cuts);
+  var packets = [];
 
   for(var i = 0; i < cuts; i++){
-    packets.push(this.cards.slice(i * packetSize, i * packetSize + packetSize))
+    packets.push(this.cards.slice(i * packetSize, i * packetSize + packetSize));
   }
-  packets.push(this.cards.slice(packetSize*cuts))
-  packets.reverse()
+  packets.push(this.cards.slice(packetSize*cuts));
+  packets.reverse();
 
-  var result = []
+  var result = [];
 
   _.forEach(packets, function(packet){
-    result = result.concat(packet)
+    result = result.concat(packet);
   })
-  this.cards = result
+  this.cards = result;
 }
 
 Deck.prototype.faro = function(){
-  deckSize = this.cards.length
-  var left = this.cards.slice(0,deckSize/2)
-  var right = this.cards.slice(deckSize/2)
-  this.cards = []
+  deckSize = this.cards.length;
+  var left = this.cards.slice(0,deckSize/2);
+  var right = this.cards.slice(deckSize/2);
+  this.cards = [];
 
   for(var i = 0; i < deckSize/2; i++){
-    this.cards.push(left[i])
-    this.cards.push(right[i])
+    this.cards.push(left[i]);
+    this.cards.push(right[i]);
   }
 }
 
 Deck.prototype.shuffle = function(){
-  var shuffles = Math.floor((Math.random() * 50) + 25)
+  var shuffles = Math.floor((Math.random() * 50) + 25);
   for(i = 0; i < shuffles; i++){
-    this.cut()
-    this.faro()
+    this.cut();
+    this.faro();
   }
 }
 
 Deck.prototype.deal = function(number){
-  if(!number) number = 1
-  if(number > this.cards.length) throw new Error('Deck ran out of cards.')
-  var cards = []
+  if(!number) number = 1;
+  if(number > this.cards.length) throw new Error('Deck ran out of cards.');
+  var cards = [];
   for(var i = 0; i < number; i++){
-    var card = this.cards.pop()
-    this.dealt.push(card)
-    cards.push(card)
+    var card = this.cards.pop();
+    this.dealt.push(card);
+    cards.push(card);
   }
-  return cards
+  return cards;
 }
 
 Deck.prototype.print = function(){
   _.forEach(this.cards, function(card){
-    console.log(card.toString())
+    console.log(card.toString());
   })
-  // for(var i = 0; i < this.cards.length; i++){
-  //   console.log(this.cards[i].toString())
-  // }
 }
 
 Deck.prototype.dealtPrint = function(){
   _.forEach(this.dealt, function(dealt){
-    console.log(dealt.toString())
+    console.log(dealt.toString());
   })
 }
 
 Deck.prototype.status = function(){
-  console.log(this.cards.length + ' cards in the deck')
-  console.log(this.dealt.length + ' cards have been dealt')
+  console.log(this.cards.length + ' cards in the deck');
+  console.log(this.dealt.length + ' cards have been dealt');
 }
 
 // Card Class
 
-function Card(rank, suit){
-  this.rank = parseInt(rank)
-  this.suit = suit
+function Card(rank, suit){;
+  this.rank = parseInt(rank);
+  this.suit = suit;
 }
 
 Card.prototype.toString = function(){
-  return ranks[this.rank] + " of " + suits[this.suit]
+  return ranks[this.rank] + " of " + suits[this.suit];
 }
 
 Card.prototype.unicode = function(console){
@@ -110,61 +107,61 @@ Card.prototype.unicode = function(console){
 
   switch(this.suit){
     case 0: // Clubs
-      unisuit = 'd'
+      unisuit = 'd';
       break;
     case 1: // Diamonds
-      unisuit = 'c'
+      unisuit = 'c';
       break;
     case 2: // Hearts
-      unisuit = 'b'
+      unisuit = 'b';
       break;
     case 3: // Spades
-      unisuit = 'a'
+      unisuit = 'a';
       break;
   }
 
   switch(this.rank){
     case 14: // Ace
-      unirank = 1
+      unirank = 1;
       break;
     case 10: // Ten
-      unirank = 'a'
+      unirank = 'a';
       break;
     case 11: // Jack
-      unirank = 'b'
+      unirank = 'b';
       break;
     case 12: // Queen
-      unirank ='d'
+      unirank ='d';
       break;
     case 13: // King
-      unirank = 'e'
+      unirank = 'e';
       break;
     default: // All other cards Two through Nine
-      unirank = this.rank
+      unirank = this.rank;
       break;
   }
 
-  if(console == 1) unicode = eval("'\\u{1f0" + unisuit + unirank +"}'")
-  else unicode = '&#x1f0' + unisuit + unirank + ';'
-  return unicode
+  if(console == 1) unicode = eval("'\\u{1f0" + unisuit + unirank +"}'");
+  else unicode = '&#x1f0' + unisuit + unirank + ';';
+  return unicode;
 }
 
 Card.prototype.color = function(){
   switch(this.suit){
-    case 0: return 'black'
-    case 1: return 'red'
-    case 2: return 'red'
-    case 3: return 'black'
+    case 0: return 'black';
+    case 1: return 'red';
+    case 2: return 'red';
+    case 3: return 'black';
   }
 }
 
 // Player Class
 
 function Player(name){
-  this.name = name
-  this.hand = []
-  this.splitHand = []
-  this.turnOver = false
+  this.name = name;
+  this.hand = [];
+  this.splitHand = [];
+  this.turnOver = false;
 }
 
 // End of Classes
@@ -172,15 +169,15 @@ function Player(name){
 // Functions
 
 function sort(deck){
-  var deckSize = suits.length*_.keys(ranks).length
-  var sorted = new Array(deckSize)
-  for(i = 0; i < deckSize; i++) sorted[i] = []
+  var deckSize = suits.length*_.keys(ranks).length;
+  var sorted = new Array(deckSize);
+  for(i = 0; i < deckSize; i++) sorted[i] = [];
   _.forEach(deck, function(card){
-    var score = (((card.rank-2)*4)+card.suit)
-    sorted[score].push(card)
+    var score = (((card.rank-2)*4)+card.suit);
+    sorted[score].push(card);
   })
-  sorted = _.flatten(sorted)
-  return sorted
+  sorted = _.flatten(sorted);
+  return sorted;
 }
 
 // End Functions
